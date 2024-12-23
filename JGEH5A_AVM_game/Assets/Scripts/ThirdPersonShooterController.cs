@@ -13,6 +13,8 @@ public class ThirdPersonShooterController : MonoBehaviour
     [SerializeField] private float aimSensibility;
     [SerializeField] private LayerMask aimColliderLayerMask;
     [SerializeField] private Transform debugmouseWorldPosition;
+    [SerializeField] private Transform bulletProjectile;
+    [SerializeField] private Transform spawnBulletPosition;
 
     private ModifiedThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
@@ -26,7 +28,7 @@ public class ThirdPersonShooterController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -60,6 +62,14 @@ public class ThirdPersonShooterController : MonoBehaviour
             aimVirtualCamera.gameObject.SetActive(false);
             thirdPersonController.SetSensitivity(normalSensibility);
             thirdPersonController.SetRotateOnMove(true);
+        }
+        if (starterAssetsInputs.shoot)
+        {
+            // The direction is given by the difference between the position of the spawned Bullet and the cursor 
+            Vector3 aimDirection = (mouseWorldPosition - spawnBulletPosition.position).normalized;
+            // Creation of the bullet at spawnBulletPosition position with the rotation based on aimDirection  and a vector Vector3(0,1,0)
+            Instantiate(bulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
+            starterAssetsInputs.shoot = false; 
         }
     }
 
