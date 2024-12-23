@@ -28,6 +28,10 @@ namespace StarterAssets
         [Tooltip("Acceleration and deceleration")]
         private float SpeedChangeRate = 10.0f;
 
+        // Added variable
+        [Tooltip("Sensitivity when aiming")]
+        private float Sensitivity = 1f;
+
         [SerializeField] private AudioClip LandingAudioClip;
         public   AudioClip[] FootstepAudioClips;
         [Range(0, 1)] private float FootstepAudioVolume = 0.5f;
@@ -93,6 +97,9 @@ namespace StarterAssets
         private int _animIDJump;
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
+
+        //added variables
+        private bool _RotateOnMove = true;
 
         // timeout deltatime
         private float _jumpTimeoutDelta;
@@ -198,8 +205,8 @@ namespace StarterAssets
                 //Don't multiply mouse input by Time.deltaTime;
                 float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 
-                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier;
-                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier;
+                _cinemachineTargetYaw += _input.look.x * deltaTimeMultiplier * Sensitivity;
+                _cinemachineTargetPitch += _input.look.y * deltaTimeMultiplier * Sensitivity;
             }
 
             // clamp our rotations so our values are limited 360 degrees
@@ -261,7 +268,11 @@ namespace StarterAssets
                     RotationSmoothTime);
 
                 // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                if (_RotateOnMove)
+                {
+                    transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                }
+
             }
 
 
@@ -355,6 +366,16 @@ namespace StarterAssets
             return Mathf.Clamp(lfAngle, lfMin, lfMax);
         }
 
+        // Added method to modify the sensitivity of the camera
+        public void SetSensitivity(float newSensitivity)
+        {
+            Sensitivity = newSensitivity;
+        }
+
+        public void SetRotateOnMove(bool newRotateOnMove)
+        {
+            _RotateOnMove = newRotateOnMove;
+        }
 
         // Add sound when moving
         private void OnFootstep(AnimationEvent animationEvent)
