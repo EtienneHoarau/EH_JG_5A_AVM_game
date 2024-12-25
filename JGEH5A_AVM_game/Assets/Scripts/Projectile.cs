@@ -17,13 +17,13 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        float speed = 30f;
+        float speed = 30f; // Bullet's speed
         bulletRigidBody.velocity = transform.forward * speed;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject != player)
+        if(other.gameObject != player)// prevent the player and his ball from colliding
         Destroy(gameObject);
     }
     // Update is called once per frame

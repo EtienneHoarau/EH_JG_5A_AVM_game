@@ -50,23 +50,10 @@ public class ThirdPersonShooterController : MonoBehaviour
             thirdPersonController.SetSensitivity(normalSensibility);
             thirdPersonController.SetRotateOnMove(true);
         }
-        // A REVOIR
+        // A REVOIR : shoot durant aim ou meme sans aim ? 
         if (starterAssetsInputs.shoot && starterAssetsInputs.aim)
         {
-            var (success, position) = GetMousePosition();
-            if (success)
-            {
-                // Calculate the direction
-                // The direction is given by the difference between the position of the spawned Bullet and the cursor 
-                var aimDirection = position - spawnBulletPosition.position;
-
-                // Ignore the height difference.
-                aimDirection.y = 0 ;
-                // Creation of the bullet at spawnBulletPosition position with the rotation based on aimDirection  and a vector Vector3(0,1,0)
-                Instantiate(bulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
-                starterAssetsInputs.shoot = false;
-
-            }
+            Shoot();
         }
     }
 
@@ -101,6 +88,24 @@ public class ThirdPersonShooterController : MonoBehaviour
 
             // Make the transform look in the direction.
             transform.forward = direction;
+        }
+    }
+
+    private void Shoot()
+    {
+        var (success, position) = GetMousePosition();
+        if (success)
+        {
+            // Calculate the direction
+            // The direction is given by the difference between the position of the spawned Bullet and the cursor 
+            var aimDirection = position - spawnBulletPosition.position;
+
+            // Ignore the height difference.
+            aimDirection.y = 0;
+            // Creation of the bullet at spawnBulletPosition position with the rotation based on aimDirection  and a vector Vector3(0,1,0)
+            Instantiate(bulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
+            starterAssetsInputs.shoot = false;
+
         }
     }
 
