@@ -23,6 +23,7 @@ public class ThirdPersonShooterController : MonoBehaviour
 
     // animation IDs
     private int _animIDAim;
+    private int _animIDAimBackward;
 
     private bool _hasAnimator;
     private Animator _animator;
@@ -43,6 +44,7 @@ public class ThirdPersonShooterController : MonoBehaviour
     private void AssignAnimationIDs()
     {
         _animIDAim = Animator.StringToHash("Aim");
+        _animIDAimBackward = Animator.StringToHash("AimBackward");
     }
     // Update is called once per frame
     void Update()
@@ -54,7 +56,18 @@ public class ThirdPersonShooterController : MonoBehaviour
             // Configuration of the animation
             if (_hasAnimator)
             {
-                _animator.SetBool(_animIDAim, true);
+                // if going backward, then trigger the aimbarckward animation.
+                if(starterAssetsInputs.move.y < 0)
+                {
+                    _animator.SetBool(_animIDAim, false);
+                    _animator.SetBool(_animIDAimBackward, true);
+                }
+                //else triger the aim walking animation
+                else
+                {
+                    _animator.SetBool(_animIDAim, true);
+                    _animator.SetBool(_animIDAimBackward, false);
+                }
             }
             // Call the Aim function
             Aim();
@@ -70,6 +83,7 @@ public class ThirdPersonShooterController : MonoBehaviour
             if (_hasAnimator)
             {
                 _animator.SetBool(_animIDAim, false);
+                _animator.SetBool(_animIDAimBackward, false);
             }
             // Configuration of the camera
             aimVirtualCamera.gameObject.SetActive(false);
