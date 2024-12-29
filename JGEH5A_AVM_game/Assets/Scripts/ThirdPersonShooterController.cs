@@ -9,6 +9,7 @@ using UnityEditor.PackageManager;
 public class ThirdPersonShooterController : MonoBehaviour
 {
 
+    // Aim and Shoot variables
     [SerializeField] private CinemachineVirtualCamera aimVirtualCamera;
     private float normalSensibility = 1f;
     private float aimSensibility = 0.25f;
@@ -20,6 +21,12 @@ public class ThirdPersonShooterController : MonoBehaviour
     private ModifiedThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
 
+    // animation IDs
+    private int _animIDAim;
+
+    private bool _hasAnimator;
+    private Animator _animator;
+
     private void Awake()
     {
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
@@ -27,11 +34,16 @@ public class ThirdPersonShooterController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
-
+        _hasAnimator = TryGetComponent(out _animator);
+        AssignAnimationIDs();
+        Debug.Log(_hasAnimator);
     }
-
+    private void AssignAnimationIDs()
+    {
+        _animIDAim = Animator.StringToHash("Aim");
+    }
     // Update is called once per frame
     void Update()
     {
@@ -39,13 +51,27 @@ public class ThirdPersonShooterController : MonoBehaviour
 
         if (starterAssetsInputs.aim)
         {
+            // Configuration of the animation
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDAim, true);
+            }
+            // Call the Aim function
             Aim();
+
+            // Configuration of the camera
             aimVirtualCamera.gameObject.SetActive(true);
             thirdPersonController.SetSensitivity(aimSensibility);
             thirdPersonController.SetRotateOnMove(false);
         }
         else
         {
+            // Configuration of the animation
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDAim, false);
+            }
+            // Configuration of the camera
             aimVirtualCamera.gameObject.SetActive(false);
             thirdPersonController.SetSensitivity(normalSensibility);
             thirdPersonController.SetRotateOnMove(true);

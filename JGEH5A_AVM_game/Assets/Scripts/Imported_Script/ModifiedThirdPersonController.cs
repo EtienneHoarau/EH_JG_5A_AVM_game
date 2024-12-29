@@ -220,8 +220,15 @@ namespace StarterAssets
 
         private void Move()
         {
+ 
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            Debug.Log(targetSpeed);
+            // Prevent the player from sprinting when aiming
+            if (_input.aim)
+            {
+                targetSpeed = 2f;
+            }
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
