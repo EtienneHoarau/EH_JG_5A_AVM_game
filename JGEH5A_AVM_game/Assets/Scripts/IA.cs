@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 public class IA : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class IA : MonoBehaviour
     [SerializeField] private Transform player;
     private NavMeshAgent agent;
     [SerializeField] private GameObject projectile;
+    [SerializeField] private Transform spawnBulletPosition;
 
     // Patrolling
     private Vector3 walkPoint;
@@ -38,7 +40,7 @@ public class IA : MonoBehaviour
         health = 120;
         walkPoint = transform.position;
         walkDistance = 5f;
-        timeBetweenAttack = 0.5f;
+        timeBetweenAttack = 2f;
         sightRange = 10f;
         attackRange = 4f;
         inSightRange = false;
@@ -103,7 +105,8 @@ public class IA : MonoBehaviour
         if (!alreadyAttacked)
         {
             // Attack code here
-            Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+            Rigidbody rb = Instantiate(projectile, spawnBulletPosition.position, Quaternion.identity).GetComponent<Rigidbody>();
+
             rb.AddForce(transform.forward * 32f,ForceMode.Impulse);
             rb.AddForce(transform.up * 8f, ForceMode.Impulse);
 
