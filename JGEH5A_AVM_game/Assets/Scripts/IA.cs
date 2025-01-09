@@ -8,7 +8,7 @@ public class IA : MonoBehaviour
     [SerializeField] private LayerMask GroundLayer;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private Transform player;
-    [SerializeField] private NavMeshAgent agent;
+    private NavMeshAgent agent;
     [SerializeField] private GameObject projectile;
 
     // Patrolling
@@ -32,6 +32,18 @@ public class IA : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
     }
+
+    private void Start()
+    {
+        health = 120;
+        walkPoint = transform.position;
+        walkDistance = 5f;
+        timeBetweenAttack = 0.5f;
+        sightRange = 10f;
+        attackRange = 4f;
+        inSightRange = false;
+        inAttackRange = false;
+    }
     private void Update()
     {
         // Check for sight and attack
@@ -47,7 +59,7 @@ public class IA : MonoBehaviour
         }
         if (inSightRange && inAttackRange)
         {
-            ChasePlayer();
+            AttackPlayer();
         }
     }
 
