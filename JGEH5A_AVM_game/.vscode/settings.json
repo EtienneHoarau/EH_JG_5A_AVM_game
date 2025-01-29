@@ -51,5 +51,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "JG_EH_5A_AVM_game.sln"
+    "dotnet.defaultSolution": "JGEH5A_AVM_game.sln"
 }
