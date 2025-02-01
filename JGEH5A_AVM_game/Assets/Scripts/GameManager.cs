@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     public static GameManager Instance => instance;
     [SerializeField] private GameObject GameOverUI;
+    [SerializeField] private GameObject VictoryUI;
     // Start is called before the first frame update
 
     private void Awake()
@@ -33,5 +34,9 @@ public class GameManager : MonoBehaviour
     public void DeathScreen()
     {
         GameOverUI.SetActive(true);
+    }
+    public void VictoryScreen()
+    {
+        VictoryUI.SetActive(true);
     }
 }
