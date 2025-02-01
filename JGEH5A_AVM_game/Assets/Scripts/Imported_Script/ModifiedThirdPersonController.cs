@@ -105,6 +105,10 @@ namespace StarterAssets
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
 
+        // Health
+        private float health = 3f;
+        private float damage = 1f;
+
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
@@ -171,6 +175,15 @@ namespace StarterAssets
         private void LateUpdate()
         {
             CameraRotation();
+        }
+
+        public void TakeDamage()
+        {
+            health -= damage;
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
 
         private void AssignAnimationIDs()

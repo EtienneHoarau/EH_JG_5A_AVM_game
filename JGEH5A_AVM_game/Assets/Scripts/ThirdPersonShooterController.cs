@@ -4,7 +4,6 @@ using UnityEngine;
 using Cinemachine;
 using StarterAssets;
 using UnityEngine.InputSystem;
-using UnityEditor.PackageManager;
 
 public class ThirdPersonShooterController : MonoBehaviour
 {
@@ -90,7 +89,7 @@ public class ThirdPersonShooterController : MonoBehaviour
             thirdPersonController.SetSensitivity(normalSensibility);
             thirdPersonController.SetRotateOnMove(true);
         }
-        // A REVOIR : shoot durant aim ou meme sans aim ? 
+        // Shoot function
         if (starterAssetsInputs.shoot && starterAssetsInputs.aim)
         {
             Shoot();
