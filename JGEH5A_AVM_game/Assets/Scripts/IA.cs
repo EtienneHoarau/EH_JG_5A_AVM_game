@@ -37,12 +37,14 @@ public class IA : MonoBehaviour
 
     private void Start()
     {
-        health = 120;
+        health = 5;
+        damage = 1;
+
         walkPoint = transform.position;
         walkDistance = 5f;
-        timeBetweenAttack = 2f;
-        sightRange = 10f;
-        attackRange = 4f;
+        timeBetweenAttack = 5f;
+        sightRange = 15f;
+        attackRange = 8f;
         inSightRange = false;
         inAttackRange = false;
     }
@@ -99,29 +101,36 @@ public class IA : MonoBehaviour
     {
         agent.SetDestination(player.position);
     }
-    private void AttackPlayer() {
+
+
+    private void AttackPlayer()
+    {
         agent.SetDestination(transform.position);
         transform.LookAt(player);
+
         if (!alreadyAttacked)
         {
             // Attack code here
-            Rigidbody rb = Instantiate(projectile, spawnBulletPosition.position, Quaternion.identity).GetComponent<Rigidbody>();
+            Rigidbody rb = Instantiate(projectile, spawnBulletPosition.position, spawnBulletPosition.rotation).GetComponent<Rigidbody>();
 
-            rb.AddForce(transform.forward * 32f,ForceMode.Impulse);
+            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
             rb.AddForce(transform.up * 8f, ForceMode.Impulse);
 
-            //
             alreadyAttacked = true;
+
+            // Start cooldown timer
+            StartCoroutine(ResetAttackCoroutine());
         }
-        Invoke(nameof(ResetAttack), timeBetweenAttack);
     }
 
-    private void ResetAttack()
+    private IEnumerator ResetAttackCoroutine()
     {
+        yield return new WaitForSeconds(timeBetweenAttack);
         alreadyAttacked = false;
     }
 
-    private void TakeDamage()
+
+    public void TakeDamage()
     {
         health -= damage;
         if(health <= 0)
