@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
+
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -109,6 +111,8 @@ namespace StarterAssets
         private float health = 3f;
         private float damage = 1f;
 
+        private GameManager gameManager;
+
 #if ENABLE_INPUT_SYSTEM
         private PlayerInput _playerInput;
 #endif
@@ -136,6 +140,7 @@ namespace StarterAssets
 
         private void Awake()
         {
+            gameManager = GameManager.Instance;
             // get a reference to our main camera
             if (_mainCamera == null)
             {
@@ -182,6 +187,7 @@ namespace StarterAssets
             health -= damage;
             if (health <= 0)
             {
+                gameManager.DeathScreen();
                 Destroy(gameObject);
             }
         }
