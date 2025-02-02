@@ -115,6 +115,9 @@ namespace StarterAssets
         private float maxhealth = 5f;
         private float damage = 1f;
 
+        //Music effect
+        private AudioManager _audiomanager;
+
         private GameManager gameManager;
 
 #if ENABLE_INPUT_SYSTEM
@@ -150,6 +153,7 @@ namespace StarterAssets
             {
                 _mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
             }
+            _audiomanager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
         }
 
         private void Start()
@@ -247,6 +251,7 @@ namespace StarterAssets
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
             float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+
             // Prevent the player from sprinting when aiming
             if (_input.aim)
             {
@@ -257,7 +262,11 @@ namespace StarterAssets
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+            if (_input.move == Vector2.zero)
+            {
+                _audiomanager.NoFootstep();
+                targetSpeed = 0.0f;
+            }
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
@@ -292,6 +301,16 @@ namespace StarterAssets
             // if there is a move input rotate player when the player is moving
             if (_input.move != Vector2.zero)
             {
+                // play footstep sounds depending on the case walking and sprinting
+                if (_input.sprint)
+                {
+                    _audiomanager.RunFootstep();
+                }
+                else
+                {
+                    _audiomanager.WalkFootstep();
+                }
+
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                   _mainCamera.transform.eulerAngles.y;
                 float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,

@@ -32,13 +32,27 @@ public class IA : MonoBehaviour
     private float maxHealth = 5f;
     private float damage;
 
+    // animation IDs
+    private int _animIDWalk;
+
+    private bool _hasAnimator;
+
+    private Animator _animator;
+
     // sound effect
     private AudioManager _audioManager;
+
+    private void AssignAnimationIDs()
+    {
+        _animIDWalk = Animator.StringToHash("Walk_Anim");
+
+    }
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         _audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        _hasAnimator = TryGetComponent(out _animator);
     }
 
     private void Start()
@@ -53,6 +67,7 @@ public class IA : MonoBehaviour
         attackRange = 8f;
         inSightRange = false;
         inAttackRange = false;
+        AssignAnimationIDs();
     }
     private void Update()
     {
@@ -65,6 +80,7 @@ public class IA : MonoBehaviour
         }
         if (inSightRange && !inAttackRange)
         {
+
             ChasePlayer();
         }
         if (inSightRange && inAttackRange)
@@ -94,18 +110,30 @@ public class IA : MonoBehaviour
         }
         if (walkPointSet)
         {
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDWalk, true);
+            }
             agent.SetDestination(walkPoint);
         }
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
         if (distanceToWalkPoint.magnitude < 1f)
         {
             walkPointSet = false;
+            if (_hasAnimator)
+            {
+                _animator.SetBool(_animIDWalk, false);
+            }
         }
 
     }
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
+        if (_hasAnimator)
+        {
+            _animator.SetBool(_animIDWalk, true);
+        }
     }
 
 
@@ -113,6 +141,10 @@ public class IA : MonoBehaviour
     {
         agent.SetDestination(transform.position);
         transform.LookAt(player);
+        if (_hasAnimator)
+        {
+            _animator.SetBool(_animIDWalk, false);
+        }
 
         if (!alreadyAttacked)
         {

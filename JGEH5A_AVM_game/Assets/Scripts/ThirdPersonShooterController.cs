@@ -16,6 +16,8 @@ public class ThirdPersonShooterController : MonoBehaviour
     [SerializeField] private Transform debugmouseWorldPosition;
     [SerializeField] private Transform bulletProjectile;
     [SerializeField] private Transform spawnBulletPosition;
+    [SerializeField] private GameObject Holster;
+    [SerializeField] private GameObject Weapon;
 
     private ModifiedThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
@@ -42,7 +44,6 @@ public class ThirdPersonShooterController : MonoBehaviour
     {
         _hasAnimator = TryGetComponent(out _animator);
         AssignAnimationIDs();
-        Debug.Log(_hasAnimator);
     }
     private void AssignAnimationIDs()
     {
@@ -56,6 +57,8 @@ public class ThirdPersonShooterController : MonoBehaviour
 
         if (starterAssetsInputs.aim)
         {
+            Weapon.gameObject.SetActive(true);
+            Holster.gameObject.SetActive(false);
             // Configuration of the animation
             if (_hasAnimator)
             {
@@ -92,7 +95,12 @@ public class ThirdPersonShooterController : MonoBehaviour
             aimVirtualCamera.gameObject.SetActive(false);
             thirdPersonController.SetSensitivity(normalSensibility);
             thirdPersonController.SetRotateOnMove(true);
+
+            // Weapon
+            Holster.gameObject.SetActive(true);
+            Weapon.gameObject.SetActive(false);
         }
+
         // Shoot function
         if (starterAssetsInputs.shoot && starterAssetsInputs.aim)
         {
