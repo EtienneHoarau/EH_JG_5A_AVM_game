@@ -10,7 +10,7 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioSource SFXSource;
     [SerializeField] private AudioSource WalkSource;
     [SerializeField] private AudioSource RunSource;
-    public AudioClip death;
+    public AudioClip deathRobot;
     public AudioClip walkSound;
     public AudioClip RunSound;
     public AudioClip background;

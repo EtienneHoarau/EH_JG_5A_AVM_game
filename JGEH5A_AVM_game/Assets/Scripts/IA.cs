@@ -175,6 +175,7 @@ public class IA : MonoBehaviour
         healthbar.fillAmount = health / maxHealth;
         if (health <= 0)
         {
+            _audioManager.PlaySFX(_audioManager.deathRobot);
             Destroy(gameObject);
         }
     }
