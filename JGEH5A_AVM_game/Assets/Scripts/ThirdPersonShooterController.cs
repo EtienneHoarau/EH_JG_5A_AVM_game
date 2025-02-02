@@ -27,10 +27,14 @@ public class ThirdPersonShooterController : MonoBehaviour
     private bool _hasAnimator;
     private Animator _animator;
 
+    //Music effect
+    private AudioManager _audiomanager;
+
     private void Awake()
     {
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         thirdPersonController = GetComponent<ModifiedThirdPersonController>();
+        _audiomanager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     // Start is called before the first frame update
@@ -135,6 +139,7 @@ public class ThirdPersonShooterController : MonoBehaviour
         var (success, position) = GetMousePosition();
         if (success)
         {
+            _audiomanager.PlaySFX(_audiomanager.BulletSound);
             // Calculate the direction
             // The direction is given by the difference between the position of the spawned Bullet and the cursor 
             var aimDirection = position - spawnBulletPosition.position;

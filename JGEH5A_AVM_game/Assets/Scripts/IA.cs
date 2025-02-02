@@ -32,9 +32,13 @@ public class IA : MonoBehaviour
     private float maxHealth = 5f;
     private float damage;
 
+    // sound effect
+    private AudioManager _audioManager;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        _audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Start()
@@ -114,6 +118,7 @@ public class IA : MonoBehaviour
         {
             // Attack code here
             Rigidbody rb = Instantiate(projectile, spawnBulletPosition.position, spawnBulletPosition.rotation).GetComponent<Rigidbody>();
+            _audioManager.PlaySFX(_audioManager.EnnemyBulletSound);
 
             rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
             rb.AddForce(transform.up * 8f, ForceMode.Impulse);
