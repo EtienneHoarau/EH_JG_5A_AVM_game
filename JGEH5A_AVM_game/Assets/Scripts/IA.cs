@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class IA : MonoBehaviour
 {
@@ -12,6 +12,7 @@ public class IA : MonoBehaviour
     private NavMeshAgent agent;
     [SerializeField] private GameObject projectile;
     [SerializeField] private Transform spawnBulletPosition;
+    [SerializeField] private Image healthbar;
 
     // Patrolling
     private Vector3 walkPoint;
@@ -28,6 +29,7 @@ public class IA : MonoBehaviour
     private bool inSightRange, inAttackRange;
 
     private float health;
+    private float maxHealth = 5f;
     private float damage;
 
     private void Awake()
@@ -37,8 +39,8 @@ public class IA : MonoBehaviour
 
     private void Start()
     {
-        health = 5;
-        damage = 1;
+        health = 5f;
+        damage = 1f;
 
         walkPoint = transform.position;
         walkDistance = 5f;
@@ -53,7 +55,7 @@ public class IA : MonoBehaviour
         // Check for sight and attack
         inSightRange = Physics.CheckSphere(transform.position, sightRange, playerLayer);
         inAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
-        if(!inSightRange && !inAttackRange)
+        if (!inSightRange && !inAttackRange)
         {
             Patroling();
         }
@@ -91,7 +93,7 @@ public class IA : MonoBehaviour
             agent.SetDestination(walkPoint);
         }
         Vector3 distanceToWalkPoint = transform.position - walkPoint;
-        if(distanceToWalkPoint.magnitude < 1f)
+        if (distanceToWalkPoint.magnitude < 1f)
         {
             walkPointSet = false;
         }
@@ -133,7 +135,8 @@ public class IA : MonoBehaviour
     public void TakeDamage()
     {
         health -= damage;
-        if(health <= 0)
+        healthbar.fillAmount = health / maxHealth;
+        if (health <= 0)
         {
             Destroy(gameObject);
         }

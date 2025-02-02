@@ -3,6 +3,7 @@ using UnityEngine.AI;
 
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 #endif
 
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
@@ -81,6 +82,8 @@ namespace StarterAssets
         [Tooltip("For locking the camera position on all axis")]
         private bool LockCameraPosition = false;
 
+        [SerializeField] private Image healthbar;
+
         // cinemachine
         private float _cinemachineTargetYaw;
         private float _cinemachineTargetPitch;
@@ -108,7 +111,8 @@ namespace StarterAssets
         private float _fallTimeoutDelta;
 
         // Health
-        private float health = 3f;
+        private float health = 5f;
+        private float maxhealth = 5f;
         private float damage = 1f;
 
         private GameManager gameManager;
@@ -185,6 +189,7 @@ namespace StarterAssets
         public void TakeDamage()
         {
             health -= damage;
+            healthbar.fillAmount = health / maxhealth;
             if (health <= 0)
             {
                 gameManager.DeathScreen();
