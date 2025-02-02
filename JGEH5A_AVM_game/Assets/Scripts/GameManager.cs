@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance => instance;
     [SerializeField] private GameObject GameOverUI;
     [SerializeField] private GameObject VictoryUI;
+    [SerializeField] private GameObject EnnemyList;
     // Start is called before the first frame update
 
     private void Awake()
@@ -29,7 +30,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(EnnemyList.gameObject.transform.childCount == 0)
+        {
+            VictoryScreen();
+        }
     }
 
     public void DeathScreen()
