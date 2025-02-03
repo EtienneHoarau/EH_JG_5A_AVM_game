@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using StarterAssets;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -11,6 +13,12 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject GameOverUI;
     [SerializeField] private GameObject VictoryUI;
     [SerializeField] private GameObject EnnemyList;
+    [SerializeField] private Button restartButton;
+    [SerializeField] private Button mainMenuButton;
+    [SerializeField] private Button quitButton;
+
+    private StarterAssetsInputs starterAssetsInputs;
+
     // Start is called before the first frame update
 
     private void Awake()
@@ -24,7 +32,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        starterAssetsInputs = GetComponent<StarterAssetsInputs>();
+        restartButton.onClick.AddListener(Reset);
+        mainMenuButton.onClick.AddListener(MainMenuScene);
+
     }
 
     // Update is called once per frame
@@ -39,9 +50,29 @@ public class GameManager : MonoBehaviour
     public void DeathScreen()
     {
         GameOverUI.SetActive(true);
+        restartButton.gameObject.SetActive(true);
+        quitButton.gameObject.SetActive(true);
+        mainMenuButton.gameObject.SetActive(true);
     }
     public void VictoryScreen()
     {
         VictoryUI.SetActive(true);
+        quitButton.gameObject.SetActive(true);
+        restartButton.gameObject.SetActive(true);
+        mainMenuButton.gameObject.SetActive(true);
     }
+
+    public void Reset()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void MainMenuScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
 }
