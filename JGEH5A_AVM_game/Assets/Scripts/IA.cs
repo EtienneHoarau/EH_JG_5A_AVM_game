@@ -185,6 +185,7 @@ public class IA : MonoBehaviour
         rb.AddForce(transform.up * 8f, ForceMode.Impulse);
     }
 
+
     private IEnumerator ResetAttackCoroutine()
     {
         yield return new WaitForSeconds(timeBetweenAttack);

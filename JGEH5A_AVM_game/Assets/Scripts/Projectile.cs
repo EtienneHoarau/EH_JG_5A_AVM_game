@@ -42,7 +42,7 @@ public class Projectile : MonoBehaviour
             }
 
             //Prevent ennemies from attacking between them
-            if (other.gameObject.tag == "Robot")
+            if (other.gameObject.tag == "Robot" || other.gameObject.tag == "Boss Robot")
             {
                 IArobot = other.gameObject.GetComponent<IA>();
                 IArobot.TakeDamage();
