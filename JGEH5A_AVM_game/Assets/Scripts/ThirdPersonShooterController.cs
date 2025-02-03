@@ -111,9 +111,17 @@ public class ThirdPersonShooterController : MonoBehaviour
         {
             Shoot();
         }
-        if (starterAssetsInputs.Shield && !starterAssetsInputs.aim && shieldIsReady)
+        else
+        {
+            starterAssetsInputs.shoot = false;
+        }
+        if (starterAssetsInputs.Shield && shieldIsReady)
         {
             StartCoroutine(Protection());
+        }
+        else
+        {
+            starterAssetsInputs.Shield = false;
         }
     }
 
@@ -171,20 +179,20 @@ public class ThirdPersonShooterController : MonoBehaviour
     }
     private IEnumerator Protection()
     {
-        Shield.gameObject.SetActive(true);
         shieldIsReady = false;
+        Shield.gameObject.SetActive(true);
         shieldIsUp = true;
+        CanvasShield.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(2f);
         shieldIsUp = false;
         Shield.gameObject.SetActive(false);
-        CanvasShield.gameObject.SetActive(false);
 
-        yield return new WaitForSeconds(10f);
-        ShieldState();
+        StartCoroutine(ShieldState());
     }
-    private void ShieldState()
+    private IEnumerator ShieldState()
     {
+        yield return new WaitForSeconds(8f);
         shieldIsReady = true;
         CanvasShield.gameObject.SetActive(true);
     }
