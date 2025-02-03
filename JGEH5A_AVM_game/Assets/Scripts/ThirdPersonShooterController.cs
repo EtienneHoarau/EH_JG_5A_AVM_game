@@ -4,6 +4,7 @@ using UnityEngine;
 using Cinemachine;
 using StarterAssets;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class ThirdPersonShooterController : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class ThirdPersonShooterController : MonoBehaviour
     [SerializeField] private GameObject Holster;
     [SerializeField] private GameObject Weapon;
     [SerializeField] private GameObject Shield;
+    [SerializeField] private Image CanvasShield;
 
     private ModifiedThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
@@ -32,6 +34,10 @@ public class ThirdPersonShooterController : MonoBehaviour
 
     //Music effect
     private AudioManager _audiomanager;
+
+    private float shieldTimer;
+    private bool shieldIsReady = true;
+    private bool shieldIsUp = false;
 
     private void Awake()
     {
@@ -101,13 +107,13 @@ public class ThirdPersonShooterController : MonoBehaviour
         }
 
         // Shoot function
-        if (starterAssetsInputs.shoot && starterAssetsInputs.aim)
+        if (starterAssetsInputs.shoot && starterAssetsInputs.aim && !shieldIsUp)
         {
             Shoot();
         }
-        if (starterAssetsInputs.Shield)
+        if (starterAssetsInputs.Shield && !starterAssetsInputs.aim && shieldIsReady)
         {
-            Protection();
+            StartCoroutine(Protection());
         }
     }
 
@@ -163,11 +169,23 @@ public class ThirdPersonShooterController : MonoBehaviour
 
         }
     }
-
-    private void Protection()
+    private IEnumerator Protection()
     {
         Shield.gameObject.SetActive(true);
+        shieldIsReady = false;
+        shieldIsUp = true;
+
+        yield return new WaitForSeconds(2f);
+        shieldIsUp = false;
+        Shield.gameObject.SetActive(false);
+        CanvasShield.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(10f);
+        ShieldState();
     }
-
-
+    private void ShieldState()
+    {
+        shieldIsReady = true;
+        CanvasShield.gameObject.SetActive(true);
+    }
 }
