@@ -42,6 +42,8 @@ public class IA : MonoBehaviour
     // sound effect
     private AudioManager _audioManager;
 
+    private bool variantAttack = false;
+
     private void AssignAnimationIDs()
     {
         _animIDWalk = Animator.StringToHash("Walk_Anim");
@@ -64,7 +66,7 @@ public class IA : MonoBehaviour
         walkDistance = 5f;
         timeBetweenAttack = 5f;
         sightRange = 15f;
-        attackRange = 8f;
+        attackRange = 10f;
         inSightRange = false;
         inAttackRange = false;
         AssignAnimationIDs();
@@ -149,17 +151,38 @@ public class IA : MonoBehaviour
         if (!alreadyAttacked)
         {
             // Attack code here
-            Rigidbody rb = Instantiate(projectile, spawnBulletPosition.position, spawnBulletPosition.rotation).GetComponent<Rigidbody>();
-            _audioManager.PlaySFX(_audioManager.EnnemyBulletSound);
+            if (variantAttack)
+            {
+                Rigidbody rb = Instantiate(projectile, spawnBulletPosition.position, spawnBulletPosition.rotation).GetComponent<Rigidbody>();
+                _audioManager.PlaySFX(_audioManager.EnnemyBulletSound);
 
-            rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-            rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+                rb.AddForce(transform.forward * 5f, ForceMode.Impulse);
+                rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+            }
+            else
+            {
+                for(float i = 0f; i < 10f; i = i + 3f)
+                {
+                    StartCoroutine(VariantAttack1(i));
+                }
+            }
+            variantAttack = !variantAttack;
 
             alreadyAttacked = true;
 
             // Start cooldown timer
             StartCoroutine(ResetAttackCoroutine());
         }
+    }
+
+    private IEnumerator VariantAttack1(float time) // 3 projectiles.
+    {
+        yield return new WaitForSeconds(time/2f);
+        Rigidbody rb = Instantiate(projectile, spawnBulletPosition.position, spawnBulletPosition.rotation).GetComponent<Rigidbody>();
+        _audioManager.PlaySFX(_audioManager.EnnemyBulletSound);
+
+        rb.AddForce(transform.forward * 1.5f, ForceMode.Impulse);
+        rb.AddForce(transform.up * 8f, ForceMode.Impulse);
     }
 
     private IEnumerator ResetAttackCoroutine()
