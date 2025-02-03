@@ -18,6 +18,7 @@ public class ThirdPersonShooterController : MonoBehaviour
     [SerializeField] private Transform spawnBulletPosition;
     [SerializeField] private GameObject Holster;
     [SerializeField] private GameObject Weapon;
+    [SerializeField] private GameObject Shield;
 
     private ModifiedThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
@@ -53,8 +54,6 @@ public class ThirdPersonShooterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-
         if (starterAssetsInputs.aim)
         {
             Weapon.gameObject.SetActive(true);
@@ -105,6 +104,10 @@ public class ThirdPersonShooterController : MonoBehaviour
         if (starterAssetsInputs.shoot && starterAssetsInputs.aim)
         {
             Shoot();
+        }
+        if (starterAssetsInputs.Shield)
+        {
+            Protection();
         }
     }
 
@@ -159,6 +162,11 @@ public class ThirdPersonShooterController : MonoBehaviour
             starterAssetsInputs.shoot = false;
 
         }
+    }
+
+    private void Protection()
+    {
+        Shield.gameObject.SetActive(true);
     }
 
 

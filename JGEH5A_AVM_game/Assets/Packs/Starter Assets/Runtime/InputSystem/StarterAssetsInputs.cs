@@ -16,6 +16,8 @@ namespace StarterAssets
         public bool aim;
         // aiming state
         public bool shoot;
+		// Shield
+        public bool Shield;
 
         [Header("Movement Settings")]
 		public bool analogMovement;
@@ -56,6 +58,10 @@ namespace StarterAssets
         {
             ShootInput(value.isPressed);
         }
+        public void OnShield(InputValue value)
+        {
+            ShieldInput(value.isPressed);
+        }
 #endif
 
 
@@ -81,6 +87,11 @@ namespace StarterAssets
         public void AimInput(bool newAimState)
         {
             aim = newAimState;
+        }
+
+        public void ShieldInput(bool newShieldState)
+        {
+            Shield = newShieldState;
         }
         public void ShootInput(bool newShootState)
         {
