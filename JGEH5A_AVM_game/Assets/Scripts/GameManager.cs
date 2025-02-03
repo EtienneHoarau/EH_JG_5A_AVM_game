@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
         starterAssetsInputs = GetComponent<StarterAssetsInputs>();
         restartButton.onClick.AddListener(Reset);
         mainMenuButton.onClick.AddListener(MainMenuScene);
+        quitButton.onClick.AddListener(Quit);
 
     }
 
