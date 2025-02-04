@@ -58,8 +58,8 @@ public class GameManager : MonoBehaviour
     public void VictoryScreen()
     {
         VictoryUI.SetActive(true);
-        quitButton.gameObject.SetActive(true);
         restartButton.gameObject.SetActive(true);
+        quitButton.gameObject.SetActive(true);
         mainMenuButton.gameObject.SetActive(true);
     }
 
