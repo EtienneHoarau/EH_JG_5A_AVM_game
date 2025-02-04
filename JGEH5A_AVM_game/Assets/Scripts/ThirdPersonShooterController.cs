@@ -14,13 +14,13 @@ public class ThirdPersonShooterController : MonoBehaviour
     private float normalSensibility = 1f;
     private float aimSensibility = 0.25f;
     [SerializeField] private LayerMask aimColliderLayerMask;
-    [SerializeField] private Transform debugmouseWorldPosition;
     [SerializeField] private Transform bulletProjectile;
     [SerializeField] private Transform spawnBulletPosition;
     [SerializeField] private GameObject Holster;
     [SerializeField] private GameObject Weapon;
     [SerializeField] private GameObject Shield;
     [SerializeField] private Image CanvasShield;
+    [SerializeField] private GameObject Laser;
 
     private ModifiedThirdPersonController thirdPersonController;
     private StarterAssetsInputs starterAssetsInputs;
@@ -64,6 +64,7 @@ public class ThirdPersonShooterController : MonoBehaviour
         {
             Weapon.gameObject.SetActive(true);
             Holster.gameObject.SetActive(false);
+            Laser.gameObject.SetActive(true);
             // Configuration of the animation
             if (_hasAnimator)
             {
@@ -104,6 +105,8 @@ public class ThirdPersonShooterController : MonoBehaviour
             // Weapon
             Holster.gameObject.SetActive(true);
             Weapon.gameObject.SetActive(false);
+
+                        Laser.gameObject.SetActive(false);
         }
 
         // Shoot function
@@ -131,7 +134,6 @@ public class ThirdPersonShooterController : MonoBehaviour
 
         if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, aimColliderLayerMask))
         {
-            debugmouseWorldPosition.position = hitInfo.point;
             // The Raycast hit something, return with the position.
             return (success: true, position: hitInfo.point);
         }
