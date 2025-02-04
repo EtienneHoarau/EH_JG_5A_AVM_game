@@ -91,7 +91,6 @@ namespace StarterAssets
 
         public void ShieldInput(bool newShieldState)
         {
-			Debug.Log(newShieldState);
             Shield = newShieldState;
         }
         public void ShootInput(bool newShootState)
