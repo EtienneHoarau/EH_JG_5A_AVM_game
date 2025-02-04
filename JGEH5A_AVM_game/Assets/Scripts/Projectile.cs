@@ -38,7 +38,6 @@ public class Projectile : MonoBehaviour
             {
                 playerController = other.gameObject.GetComponent<ModifiedThirdPersonController>();
                 playerController.TakeDamage();
-                Debug.Log("player - 1 hp");
             }
 
             //Prevent ennemies from attacking between them
