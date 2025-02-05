@@ -80,7 +80,11 @@ public class GameManager : MonoBehaviour
     }
     public void MainMenuScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadScene("Main_Menu");
+    }
+    public void LoadLevel1()
+    {
+        SceneManager.LoadScene("Map1 Etienne alpha");
     }
     public void Quit()
     {

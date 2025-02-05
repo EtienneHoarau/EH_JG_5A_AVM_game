@@ -211,6 +211,7 @@ public class IA : MonoBehaviour
                 _audioManager.PlaySFX(_audioManager.deathRobot);
             }
             // _audioManager.PlaySFX(_audioManager.deathRobot);
+            Debug.Log("Ennemy defeated");
             Destroy(gameObject);
         }
     }
