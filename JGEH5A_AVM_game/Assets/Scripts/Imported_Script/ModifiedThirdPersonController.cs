@@ -180,8 +180,7 @@ namespace StarterAssets
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
-            // no jump nor gravity
-           //JumpAndGravity();
+            JumpAndGravity();
             GroundedCheck();
             Move();
         }
