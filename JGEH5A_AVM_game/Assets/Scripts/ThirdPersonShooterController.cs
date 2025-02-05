@@ -174,7 +174,9 @@ public class ThirdPersonShooterController : MonoBehaviour
             // Ignore the height difference.
             aimDirection.y = 0;
             // Creation of the bullet at spawnBulletPosition position with the rotation based on aimDirection  and a vector Vector3(0,1,0)
-            Instantiate(bulletProjectile, spawnBulletPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
+            var newBullet = bulletProjectile;
+            if(newBullet)
+            Instantiate(newBullet, spawnBulletPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
             starterAssetsInputs.shoot = false;
 
         }

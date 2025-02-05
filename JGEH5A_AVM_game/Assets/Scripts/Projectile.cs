@@ -46,7 +46,9 @@ public class Projectile : MonoBehaviour
                 IArobot = other.gameObject.GetComponent<IA>();
                 IArobot.TakeDamage();
             }
-            Destroy(NewVFX, 1.0f);
+            if (NewVFX)
+                Destroy(NewVFX, 1.0f);
+            if(gameObject)
             Destroy(gameObject);
         }
     }
