@@ -126,7 +126,7 @@ GameObject:
   m_Component:
   - component: {fileID: 743020909546310991}
   - component: {fileID: 1023805622487019488}
-  - component: {fileID: 8662199469588112057}
+  - component: {fileID: 7281051905838412752}
   - component: {fileID: 5962518131228993278}
   - component: {fileID: 18618395293579855}
   m_Layer: 0
@@ -175,7 +175,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &8662199469588112057
+--- !u!114 &7281051905838412752
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -184,19 +184,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 1032406800803961117}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f03fa7707207944a83b35637a421c6a, type: 3}
+  m_Script: {fileID: 11500000, guid: 792657c4138025947b5a1dab0a3aff16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   GroundLayer:
     serializedVersion: 2
-    m_Bits: 9
+    m_Bits: 65
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
   player: {fileID: 0}
   projectile: {fileID: 0}
-  spawnBulletPosition: {fileID: 6002143696650857792}
-  healthbar: {fileID: 4941210380744526736}
+  spawnBulletPosition: {fileID: 0}
+  healthbar: {fileID: 0}
 --- !u!195 &5962518131228993278
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -4475,17 +4475,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7de52f2909d6af24facbf27ede32b9cc, type: 3}
---- !u!114 &4941210380744526736 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6837461765218353830, guid: 7de52f2909d6af24facbf27ede32b9cc, type: 3}
-  m_PrefabInstance: {fileID: 1905374033548396854}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &6254771300027740266 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5529389881250412892, guid: 7de52f2909d6af24facbf27ede32b9cc, type: 3}

@@ -12,7 +12,7 @@ public class IA : MonoBehaviour
     private NavMeshAgent agent;
     [SerializeField] private GameObject projectile;
     [SerializeField] private Transform spawnBulletPosition;
-    [SerializeField] private Image healthbar;
+    [SerializeField] protected Image healthbar;
 
     // Patrolling
     private Vector3 walkPoint;
@@ -28,9 +28,9 @@ public class IA : MonoBehaviour
     private float attackRange;
     private bool inSightRange, inAttackRange;
 
-    private float health;
-    private float maxHealth = 5f;
-    private float damage;
+    protected float health;
+    protected float maxHealth = 5f;
+    protected float damage;
 
     // animation IDs
     private int _animIDWalk;
@@ -40,7 +40,7 @@ public class IA : MonoBehaviour
     private Animator _animator;
 
     // sound effect
-    private AudioManager _audioManager;
+    protected AudioManager _audioManager;
 
     private bool variantAttack = false;
 
@@ -57,7 +57,7 @@ public class IA : MonoBehaviour
         _hasAnimator = TryGetComponent(out _animator);
     }
 
-    private void Start()
+    protected void Start()
     {
         health = 5f;
         damage = 1f;
@@ -199,7 +199,18 @@ public class IA : MonoBehaviour
         healthbar.fillAmount = health / maxHealth;
         if (health <= 0)
         {
-            _audioManager.PlaySFX(_audioManager.deathRobot);
+            if (this is IA_Boss)
+            {
+                _audioManager.PlaySFX(_audioManager.deathRobot);
+                // Debug.Log("Boss defeated");
+                GameManager.Instance.FinalVictoryScreen();
+            }
+            else
+            {
+                ZoneAccessManager.Instance.RemoveEnnemy(gameObject);
+                _audioManager.PlaySFX(_audioManager.deathRobot);
+            }
+            // _audioManager.PlaySFX(_audioManager.deathRobot);
             Destroy(gameObject);
         }
     }

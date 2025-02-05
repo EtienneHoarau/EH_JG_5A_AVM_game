@@ -29,6 +29,6 @@ public class Main_Menu_Manager : MonoBehaviour
 
     public void LoadLevel1()
     {
-        SceneManager.LoadScene("Map1 Etienne");
+        SceneManager.LoadScene("Map1 Etienne alpha");
     }
 }
