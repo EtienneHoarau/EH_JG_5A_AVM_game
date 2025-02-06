@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class IA_Tuto : IA
 {
-    // Start is called before the first frame update
+    // Change the attitud of the IA from the tutorial, to prevent it from attacking the player
     private void Update()
     {
         // Check for sight and attack

@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class IA_enemies : IA
 {
-    // Start is called before the first frame update
-    
-
-    
+    // Only here to make the IA_enemies class different from the IA class
 }

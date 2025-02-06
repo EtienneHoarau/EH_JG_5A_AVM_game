@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Activate_Zone : MonoBehaviour
 {
-
+    //When the player enters the zone, the barrier and the zone are activated so the player can't go back
     private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
-            Transform parentOfParent = transform.parent.parent;
+            Transform parentOfParent = transform.parent.parent; 
             if (parentOfParent != null)
             {
                 Transform zone1 = parentOfParent.Find("zone1");
@@ -25,17 +25,5 @@ public class Activate_Zone : MonoBehaviour
             }
             Destroy(this.transform.parent.gameObject);
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

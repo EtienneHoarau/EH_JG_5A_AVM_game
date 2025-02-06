@@ -6,18 +6,7 @@ using UnityEngine.SceneManagement;
 public class Main_Menu_Manager : MonoBehaviour
 {
     [SerializeField] private Canvas settingsPanel;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
+  
     public void Quit()
     {
         Application.Quit();

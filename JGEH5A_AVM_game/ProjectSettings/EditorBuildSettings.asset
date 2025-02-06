@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level#1.unity
     guid: f6c44b3d90d196e4085dfbc280c573a3
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Map1 Etienne alpha.unity
     guid: 027804e1b1020e5469fc54505c0e01e1
   - enabled: 1

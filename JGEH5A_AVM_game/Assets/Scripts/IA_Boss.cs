@@ -4,17 +4,6 @@ using UnityEngine;
 
 public class IA_Boss : IA
 {
-    // Start is called before the first frame update
-    private new void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    
+    //Only here to make the IA_Boss class different from the IA class
 }
 
