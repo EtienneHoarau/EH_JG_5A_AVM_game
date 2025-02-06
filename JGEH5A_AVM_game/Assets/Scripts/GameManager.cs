@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
     }
     public void LoadLevel1()
     {
-        SceneManager.LoadScene("Map1 Etienne alpha");
+        SceneManager.LoadScene("Modified_Map1 Etienne alpha");
     }
     public void Quit()
     {

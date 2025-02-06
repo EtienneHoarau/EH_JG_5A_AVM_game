@@ -29,12 +29,12 @@ public class Projectile : MonoBehaviour
         this.player = GameObject.FindWithTag("Player");
     }
     private void OnTriggerEnter(Collider other)
-    { 
+    {
         // prevent the player and his ball from colliding
         if (other.gameObject != shooter)
         {
             GameObject NewVFX = Instantiate(explositionEffect, transform.position, Quaternion.identity);
-            if(other.gameObject == player)
+            if (other.gameObject == player)
             {
                 playerController = other.gameObject.GetComponent<ModifiedThirdPersonController>();
                 playerController.TakeDamage();
@@ -44,12 +44,15 @@ public class Projectile : MonoBehaviour
             if (other.gameObject.tag == "Robot" || other.gameObject.tag == "Boss Robot")
             {
                 IArobot = other.gameObject.GetComponent<IA>();
-                IArobot.TakeDamage();
+                if (IArobot != null && !(IArobot is IA_Tuto))
+                {
+                    IArobot.TakeDamage();
+                }
             }
             if (NewVFX)
                 Destroy(NewVFX, 1.0f);
-            if(gameObject)
-            Destroy(gameObject);
+            if (gameObject)
+                Destroy(gameObject);
         }
     }
 

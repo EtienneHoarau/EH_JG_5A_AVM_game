@@ -74,4 +74,6 @@ public class Parameter_Manager : MonoBehaviour
     {
         transform.parent.gameObject.SetActive(false);
     }
+
+    
 }

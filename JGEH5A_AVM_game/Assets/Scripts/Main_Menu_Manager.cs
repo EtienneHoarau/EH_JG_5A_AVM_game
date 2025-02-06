@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Main_Menu_Manager : MonoBehaviour
 {
+    [SerializeField] private Canvas settingsPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +30,11 @@ public class Main_Menu_Manager : MonoBehaviour
 
     public void LoadLevel1()
     {
-        SceneManager.LoadScene("Map1 Etienne alpha");
+        SceneManager.LoadScene("Modified_Map1 Etienne alpha");
+    }
+
+    public void ActivateSettings()
+    {
+        settingsPanel.gameObject.SetActive(true);
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class IA : MonoBehaviour
 {
     [SerializeField] private LayerMask GroundLayer;
-    [SerializeField] private LayerMask playerLayer;
+    [SerializeField] protected LayerMask playerLayer;
     [SerializeField] private Transform player;
     private NavMeshAgent agent;
     [SerializeField] private GameObject projectile;
@@ -24,9 +24,9 @@ public class IA : MonoBehaviour
     private bool alreadyAttacked;
 
     // States
-    private float sightRange;
-    private float attackRange;
-    private bool inSightRange, inAttackRange;
+    protected float sightRange;
+    protected float attackRange;
+    protected bool inSightRange, inAttackRange;
 
     protected float health;
     protected float maxHealth = 5f;
@@ -104,7 +104,7 @@ public class IA : MonoBehaviour
             walkPointSet = true;
         }
     }
-    private void Patroling()
+    protected void Patroling()
     {
         if (!walkPointSet)
         {
@@ -129,7 +129,7 @@ public class IA : MonoBehaviour
         }
 
     }
-    private void ChasePlayer()
+    protected void ChasePlayer()
     {
         agent.SetDestination(player.position);
         if (_hasAnimator)
