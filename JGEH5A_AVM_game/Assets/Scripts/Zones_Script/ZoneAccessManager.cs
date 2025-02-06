@@ -61,7 +61,7 @@ public class ZoneAccessManager : MonoBehaviour
     void Update()
     {
         // Check if all enemies are dead to destroy the zone and free the player
-        if(ennemiesAliveCount == 0)
+        if(ennemiesAliveCount <= 0)
         {
             Destroy(transform.parent.gameObject);
         }
