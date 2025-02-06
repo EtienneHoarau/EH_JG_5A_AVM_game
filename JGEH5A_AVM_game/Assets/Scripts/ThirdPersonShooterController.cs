@@ -102,11 +102,10 @@ public class ThirdPersonShooterController : MonoBehaviour
             thirdPersonController.SetSensitivity(normalSensibility);
             thirdPersonController.SetRotateOnMove(true);
 
-            // Weapon
+            // Weapon management
             Holster.gameObject.SetActive(true);
             Weapon.gameObject.SetActive(false);
-
-                        Laser.gameObject.SetActive(false);
+            Laser.gameObject.SetActive(false);
         }
 
         // Shoot function

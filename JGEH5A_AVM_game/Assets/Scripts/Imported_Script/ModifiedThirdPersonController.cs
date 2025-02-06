@@ -360,8 +360,8 @@ namespace StarterAssets
                     _verticalVelocity = -2f;
                 }
 
-                // Jump
-                if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+                // Jump, we set a condition to prevent the player from jumping
+                if (_input.jump && _jumpTimeoutDelta <= 0.0f && 0 == 1)
                 {
                     // the square root of H * -2 * G = how much velocity needed to reach desired height
                     _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
