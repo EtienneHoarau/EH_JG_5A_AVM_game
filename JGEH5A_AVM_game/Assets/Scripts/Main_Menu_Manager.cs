@@ -14,12 +14,12 @@ public class Main_Menu_Manager : MonoBehaviour
 
     public void LoadTuto()
     {
-        SceneManager.LoadScene("Level#1");
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void LoadLevel1()
     {
-        SceneManager.LoadScene("Modified_Map1 Etienne alpha");
+        SceneManager.LoadScene("Level_1");
     }
 
     public void ActivateSettings()
