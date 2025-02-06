@@ -62,6 +62,9 @@ public class ThirdPersonShooterController : MonoBehaviour
     {
         if (starterAssetsInputs.aim)
         {
+            // prevent the cursor from appearing
+            Cursor.visible = false;
+
             Weapon.gameObject.SetActive(true);
             Holster.gameObject.SetActive(false);
             Laser.gameObject.SetActive(true);
@@ -91,6 +94,9 @@ public class ThirdPersonShooterController : MonoBehaviour
         }
         else
         {
+            // Cursor up again
+            Cursor.visible = true;
+
             // Configuration of the animation
             if (_hasAnimator)
             {
@@ -102,11 +108,10 @@ public class ThirdPersonShooterController : MonoBehaviour
             thirdPersonController.SetSensitivity(normalSensibility);
             thirdPersonController.SetRotateOnMove(true);
 
-            // Weapon
+            // Weapon management
             Holster.gameObject.SetActive(true);
             Weapon.gameObject.SetActive(false);
-
-                        Laser.gameObject.SetActive(false);
+            Laser.gameObject.SetActive(false);
         }
 
         // Shoot function
@@ -167,16 +172,18 @@ public class ThirdPersonShooterController : MonoBehaviour
         if (success)
         {
             _audiomanager.PlaySFX(_audiomanager.BulletSound);
-            // Calculate the direction
             // The direction is given by the difference between the position of the spawned Bullet and the cursor 
-            var aimDirection = position - spawnBulletPosition.position;
+            var direction = position;
+            direction.x = transform.forward.x;
+            direction.z = transform.forward.z;
 
             // Ignore the height difference.
-            aimDirection.y = 0;
+            direction.y = 0;
+
             // Creation of the bullet at spawnBulletPosition position with the rotation based on aimDirection  and a vector Vector3(0,1,0)
             var newBullet = bulletProjectile;
             if(newBullet)
-            Instantiate(newBullet, spawnBulletPosition.position, Quaternion.LookRotation(aimDirection, Vector3.up));
+            Instantiate(newBullet, spawnBulletPosition.position, Quaternion.LookRotation(transform.forward, Vector3.up));
             starterAssetsInputs.shoot = false;
 
         }

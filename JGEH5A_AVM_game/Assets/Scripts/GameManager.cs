@@ -44,14 +44,11 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        // if(EnnemyList.gameObject.transform.childCount == 0)
-        // {
-        //     VictoryScreen();
-        // }
+    { 
+
     }
 
-    public void DeathScreen()
+    public void DefeatScreen()
     {
         GameOverUI.SetActive(true);
         restartButton.gameObject.SetActive(true);
@@ -84,7 +81,7 @@ public class GameManager : MonoBehaviour
     }
     public void LoadLevel1()
     {
-        SceneManager.LoadScene("Modified_Map1 Etienne alpha");
+        SceneManager.LoadScene("Tutorial");
     }
     public void Quit()
     {
@@ -93,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     public void VictoryButton()
     {
-        SceneManager.LoadScene("BossMap Etienne");
+        SceneManager.LoadScene("Level_1");
     }
 
 }

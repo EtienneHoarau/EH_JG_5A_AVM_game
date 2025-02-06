@@ -10,16 +10,7 @@ public class IA_Tuto : IA
         // Check for sight and attack
         inSightRange = Physics.CheckSphere(transform.position, sightRange, playerLayer);
         inAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
-        if (!inSightRange && !inAttackRange)
-        {
-            Patroling();
-        }
-        if (inSightRange && !inAttackRange)
-        {
-
-            ChasePlayer();
-        }
-        
+        Patroling();        
     }
 
 }
