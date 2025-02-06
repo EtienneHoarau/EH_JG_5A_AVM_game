@@ -63,7 +63,7 @@ public class IA : MonoBehaviour
         damage = 1f;
 
         walkPoint = transform.position;
-        walkDistance = 5f;
+        walkDistance = 3f;
         timeBetweenAttack = 5f;
         sightRange = 15f;
         attackRange = 10f;

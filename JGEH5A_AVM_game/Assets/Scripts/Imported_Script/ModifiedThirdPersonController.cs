@@ -175,6 +175,8 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+            // prevent the cursor from appearing
+            Cursor.visible = false;
         }
 
         private void Update()
