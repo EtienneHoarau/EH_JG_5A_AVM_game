@@ -64,8 +64,8 @@ public class IA : MonoBehaviour
 
         walkPoint = transform.position;
         walkDistance = 3f;
-        timeBetweenAttack = 5f;
-        sightRange = 15f;
+        timeBetweenAttack = 3f;
+        sightRange = 16f;
         attackRange = 10f;
         inSightRange = false;
         inAttackRange = false;
@@ -153,6 +153,13 @@ public class IA : MonoBehaviour
             // Attack code here
             if (variantAttack)
             {
+                if(this is IA_Boss)
+                {
+                    for (float i = 0f; i < 10f; i = i + 3f)
+                    {
+                        StartCoroutine(VariantAttack1(i));
+                    }
+                }
                 Rigidbody rb = Instantiate(projectile, spawnBulletPosition.position, spawnBulletPosition.rotation).GetComponent<Rigidbody>();
                 _audioManager.PlaySFX(_audioManager.EnnemyBulletSound);
 
@@ -161,9 +168,16 @@ public class IA : MonoBehaviour
             }
             else
             {
-                for(float i = 0f; i < 10f; i = i + 3f)
+                if (this is IA_Boss)
                 {
-                    StartCoroutine(VariantAttack1(i));
+                    VariantAttack2();
+                }
+                else
+                {
+                    for (float i = 0f; i < 10f; i = i + 3f)
+                    {
+                        StartCoroutine(VariantAttack1(i));
+                    }
                 }
             }
             variantAttack = !variantAttack;
@@ -177,13 +191,46 @@ public class IA : MonoBehaviour
 
     private IEnumerator VariantAttack1(float time) // 3 projectiles.
     {
-        yield return new WaitForSeconds(time/2f);
+        yield return new WaitForSeconds(time/3f);
         Rigidbody rb = Instantiate(projectile, spawnBulletPosition.position, spawnBulletPosition.rotation).GetComponent<Rigidbody>();
         _audioManager.PlaySFX(_audioManager.EnnemyBulletSound);
 
         rb.AddForce(transform.forward * 1.5f, ForceMode.Impulse);
         rb.AddForce(transform.up * 8f, ForceMode.Impulse);
     }
+    private void VariantAttack2() // 12 projectiles autour de l'ennemi
+    {
+        int projectileCount = 12;
+        float radius = projectileCount / 2f;
+
+        for (int i = 0; i < projectileCount; i++)
+        {
+            // Calcul de l'angle en radians
+            float angle = i * (360f / projectileCount) * Mathf.Deg2Rad;
+
+            // Calcul de la position autour de l'ennemi
+            Vector3 spawnPosition = transform.position + new Vector3(Mathf.Cos(angle) * radius, 0f, Mathf.Sin(angle) * radius);
+
+            // Calcul de la direction correcte pour chaque projectile
+            Vector3 direction = (spawnPosition - transform.position).normalized;
+
+            // Création du projectile avec rotation alignée sur la direction de tir
+            Quaternion rotation = Quaternion.LookRotation(direction);
+            var bullet = Instantiate(projectile, spawnPosition, rotation);
+
+            _audioManager.PlaySFX(_audioManager.EnnemyBulletSound);
+
+            // Appliquer la force dans la bonne direction
+            bullet.GetComponent<Rigidbody>().AddForce(direction * 5f, ForceMode.Impulse);
+            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * .5f, ForceMode.Impulse);
+            bullet.GetComponent<Rigidbody>().AddForce(transform.up * 8f, ForceMode.Impulse);
+        }
+    }
+
+
+
+
+
 
 
     private IEnumerator ResetAttackCoroutine()
@@ -195,14 +242,20 @@ public class IA : MonoBehaviour
 
     public void TakeDamage()
     {
-        health -= damage;
+        if (this is IA_Boss)
+        {
+            health -= damage / 20;
+        }
+        else
+        {
+            health -= damage;
+        }
         healthbar.fillAmount = health / maxHealth;
         if (health <= 0)
         {
             if (this is IA_Boss)
             {
                 _audioManager.PlaySFX(_audioManager.deathRobot);
-                // Debug.Log("Boss defeated");
                 GameManager.Instance.FinalVictoryScreen();
             }
             else
@@ -210,9 +263,9 @@ public class IA : MonoBehaviour
                 ZoneAccessManager.Instance.RemoveEnnemy(gameObject);
                 _audioManager.PlaySFX(_audioManager.deathRobot);
             }
-            // _audioManager.PlaySFX(_audioManager.deathRobot);
-            Debug.Log("Ennemy defeated");
             Destroy(gameObject);
         }
+
+
     }
 }

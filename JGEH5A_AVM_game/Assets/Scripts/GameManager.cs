@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
     }
     public void LoadLevel1()
     {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene("Level_1");
     }
     public void Quit()
     {
