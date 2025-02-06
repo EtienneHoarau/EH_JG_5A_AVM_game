@@ -175,8 +175,6 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
-            // prevent the cursor from appearing
-            Cursor.visible = false;
         }
 
         private void Update()
@@ -198,7 +196,7 @@ namespace StarterAssets
             healthbar.fillAmount = health / maxhealth;
             if (health <= 0)
             {
-                gameManager.DeathScreen();
+                gameManager.DefeatScreen();
                 Destroy(gameObject);
             }
         }

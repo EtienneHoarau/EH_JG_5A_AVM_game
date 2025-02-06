@@ -44,14 +44,11 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        // if(EnnemyList.gameObject.transform.childCount == 0)
-        // {
-        //     VictoryScreen();
-        // }
+    { 
+
     }
 
-    public void DeathScreen()
+    public void DefeatScreen()
     {
         GameOverUI.SetActive(true);
         restartButton.gameObject.SetActive(true);

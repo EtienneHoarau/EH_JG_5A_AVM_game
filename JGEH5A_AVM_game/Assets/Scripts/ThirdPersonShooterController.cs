@@ -62,6 +62,9 @@ public class ThirdPersonShooterController : MonoBehaviour
     {
         if (starterAssetsInputs.aim)
         {
+            // prevent the cursor from appearing
+            Cursor.visible = false;
+
             Weapon.gameObject.SetActive(true);
             Holster.gameObject.SetActive(false);
             Laser.gameObject.SetActive(true);
@@ -91,6 +94,9 @@ public class ThirdPersonShooterController : MonoBehaviour
         }
         else
         {
+            // Cursor up again
+            Cursor.visible = true;
+
             // Configuration of the animation
             if (_hasAnimator)
             {
