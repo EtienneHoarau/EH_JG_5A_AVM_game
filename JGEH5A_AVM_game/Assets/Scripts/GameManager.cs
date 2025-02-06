@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
 
     public void VictoryButton()
     {
-        SceneManager.LoadScene("Level_1");
+        SceneManager.LoadScene("BossMap");
     }
 
 }
