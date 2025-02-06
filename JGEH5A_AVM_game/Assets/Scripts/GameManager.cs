@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     public void DefeatScreen()
     {
+        Cursor.visible = true;
         GameOverUI.SetActive(true);
         restartButton.gameObject.SetActive(true);
         quitButton.gameObject.SetActive(true);
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
     }
     public void VictoryScreen()
     {
+        Cursor.visible = true;
         VictoryUI.SetActive(true);
         restartButton2.gameObject.SetActive(true);
         quitButton2.gameObject.SetActive(true);
@@ -65,6 +67,7 @@ public class GameManager : MonoBehaviour
 
     public void FinalVictoryScreen()
     {
+        Cursor.visible = true;
         VictoryUI.SetActive(true);
         restartButton.gameObject.SetActive(true);
         quitButton.gameObject.SetActive(true);

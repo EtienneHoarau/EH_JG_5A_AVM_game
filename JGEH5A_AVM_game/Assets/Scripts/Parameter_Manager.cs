@@ -72,7 +72,7 @@ public class Parameter_Manager : MonoBehaviour
 
     public void CloseParameters()
     {
-        transform.parent.gameObject.SetActive(false);
+        transform.parent.Find("management").gameObject.SetActive(false);
     }
 
     

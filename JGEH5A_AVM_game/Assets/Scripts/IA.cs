@@ -32,6 +32,9 @@ public class IA : MonoBehaviour
     protected float maxHealth = 5f;
     protected float damage;
 
+    // Activation
+    private float isActivating = 0f;
+
     // animation IDs
     private int _animIDWalk;
 
@@ -71,23 +74,31 @@ public class IA : MonoBehaviour
         inAttackRange = false;
         AssignAnimationIDs();
     }
-    private void Update()
+    protected void Update()
     {
-        // Check for sight and attack
-        inSightRange = Physics.CheckSphere(transform.position, sightRange, playerLayer);
-        inAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
-        if (!inSightRange && !inAttackRange)
-        {
-            Patroling();
-        }
-        if (inSightRange && !inAttackRange)
+        if (isActivating > 3f)
         {
 
-            ChasePlayer();
+            // Check for sight and attack
+            inSightRange = Physics.CheckSphere(transform.position, sightRange, playerLayer);
+            inAttackRange = Physics.CheckSphere(transform.position, attackRange, playerLayer);
+            if (!inSightRange && !inAttackRange)
+            {
+                Patroling();
+            }
+            if (inSightRange && !inAttackRange)
+            {
+
+                ChasePlayer();
+            }
+            if (inSightRange && inAttackRange)
+            {
+                AttackPlayer();
+            }
         }
-        if (inSightRange && inAttackRange)
+        else
         {
-            AttackPlayer();
+            isActivating += Time.deltaTime;
         }
     }
 
@@ -153,7 +164,7 @@ public class IA : MonoBehaviour
             // Attack code here
             if (variantAttack)
             {
-                if(this is IA_Boss)
+                if (this is IA_Boss)
                 {
                     for (float i = 0f; i < 10f; i = i + 3f)
                     {
@@ -163,7 +174,7 @@ public class IA : MonoBehaviour
                 Rigidbody rb = Instantiate(projectile, spawnBulletPosition.position, spawnBulletPosition.rotation).GetComponent<Rigidbody>();
                 _audioManager.PlaySFX(_audioManager.EnnemyBulletSound);
 
-                rb.AddForce(transform.forward * 5f, ForceMode.Impulse);
+                rb.AddForce(transform.forward * 0.5f, ForceMode.Impulse);
                 rb.AddForce(transform.up * 8f, ForceMode.Impulse);
             }
             else
@@ -191,7 +202,7 @@ public class IA : MonoBehaviour
 
     private IEnumerator VariantAttack1(float time) // 3 projectiles.
     {
-        yield return new WaitForSeconds(time/3f);
+        yield return new WaitForSeconds(time / 3f);
         Rigidbody rb = Instantiate(projectile, spawnBulletPosition.position, spawnBulletPosition.rotation).GetComponent<Rigidbody>();
         _audioManager.PlaySFX(_audioManager.EnnemyBulletSound);
 
@@ -205,24 +216,20 @@ public class IA : MonoBehaviour
 
         for (int i = 0; i < projectileCount; i++)
         {
-            // Calcul de l'angle en radians
+            // Calculation of the angle and spawn position 
             float angle = i * (360f / projectileCount) * Mathf.Deg2Rad;
-
-            // Calcul de la position autour de l'ennemi
             Vector3 spawnPosition = transform.position + new Vector3(Mathf.Cos(angle) * radius, 0f, Mathf.Sin(angle) * radius);
 
-            // Calcul de la direction correcte pour chaque projectile
+            // Calculation of the direction for each bullet
             Vector3 direction = (spawnPosition - transform.position).normalized;
-
-            // Création du projectile avec rotation alignée sur la direction de tir
             Quaternion rotation = Quaternion.LookRotation(direction);
-            var bullet = Instantiate(projectile, spawnPosition, rotation);
 
+            var bullet = Instantiate(projectile, spawnPosition, rotation);
             _audioManager.PlaySFX(_audioManager.EnnemyBulletSound);
 
             // Appliquer la force dans la bonne direction
-            bullet.GetComponent<Rigidbody>().AddForce(direction * 5f, ForceMode.Impulse);
-            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * .5f, ForceMode.Impulse);
+            bullet.GetComponent<Rigidbody>().AddForce(direction * 1.5f, ForceMode.Impulse);
+            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 0.05f, ForceMode.Impulse);
             bullet.GetComponent<Rigidbody>().AddForce(transform.up * 8f, ForceMode.Impulse);
         }
     }
@@ -244,7 +251,7 @@ public class IA : MonoBehaviour
     {
         if (this is IA_Boss)
         {
-            health -= damage / 20;
+            health -= damage / 15;
         }
         else
         {
@@ -253,16 +260,8 @@ public class IA : MonoBehaviour
         healthbar.fillAmount = health / maxHealth;
         if (health <= 0)
         {
-            if (this is IA_Boss)
-            {
-                _audioManager.PlaySFX(_audioManager.deathRobot);
-                GameManager.Instance.FinalVictoryScreen();
-            }
-            else
-            {
-                ZoneAccessManager.Instance.RemoveEnnemy(gameObject);
-                _audioManager.PlaySFX(_audioManager.deathRobot);
-            }
+            _audioManager.PlaySFX(_audioManager.deathRobot);
+            ZoneAccessManager.Instance.RemoveEnnemy(gameObject);
             Destroy(gameObject);
         }
 

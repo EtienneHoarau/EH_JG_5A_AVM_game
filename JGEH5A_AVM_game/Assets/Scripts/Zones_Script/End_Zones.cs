@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class End_Zones : MonoBehaviour
 {
@@ -9,7 +10,11 @@ public class End_Zones : MonoBehaviour
     {
         if(transform.childCount == 0)
         {
-            GameManager.Instance.VictoryScreen();
+            if (SceneManager.GetActiveScene().name == "BossMap")
+            {
+                GameManager.Instance.FinalVictoryScreen();
+            }
+            else GameManager.Instance.VictoryScreen();
         }
     }
 }

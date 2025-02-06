@@ -862,6 +862,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 290751636}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!223 &293008650 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 3702366981109628018, guid: 2708e19463d323841aa82557fae3d193, type: 3}
+  m_PrefabInstance: {fileID: 1225163764}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &298574544
 GameObject:
   m_ObjectHideFlags: 0
@@ -2890,7 +2895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1824533129b75904cba07a6fb20fdca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsPanel: {fileID: 1501345761}
+  settingsPanel: {fileID: 293008650}
 --- !u!4 &1056162913
 Transform:
   m_ObjectHideFlags: 0
@@ -3922,7 +3927,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6973230658687232495, guid: 2708e19463d323841aa82557fae3d193, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7696113364170037409, guid: 2708e19463d323841aa82557fae3d193, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -4698,11 +4703,6 @@ BoxCollider:
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6270006561892956534, guid: cd733f370e2de0243b8174707042a943, type: 3}
   m_PrefabInstance: {fileID: 6866908061290739196}
-  m_PrefabAsset: {fileID: 0}
---- !u!223 &1501345761 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 6607589361668026380, guid: 2708e19463d323841aa82557fae3d193, type: 3}
-  m_PrefabInstance: {fileID: 1225163764}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1524255844
 PrefabInstance:
